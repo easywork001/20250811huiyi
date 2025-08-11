@@ -298,7 +298,8 @@ function App() {
                 <ExternalLink className="w-4 h-4 mr-2" />
                 了解更多
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
+              <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                <ExternalLink className="w-4 h-4 mr-2" />
                 联系我们
               </Button>
             </div>
@@ -314,7 +315,7 @@ function App() {
               className="h-8 w-auto object-contain opacity-70"
             />
             <p className="text-gray-600 text-sm">
-              © 2024 青岛市政研室×智能体创业公司调研会 | 易术研究
+              © 2025 青岛市政研室×智能体创业公司调研会 | 易术研究
             </p>
             <p className="text-gray-500 text-xs">
               本报告基于实地调研和深度访谈，为政府决策提供参考依据

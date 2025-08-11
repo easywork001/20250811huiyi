@@ -185,7 +185,6 @@ function App() {
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </header>
@@ -299,7 +298,8 @@ function App() {
                 <ExternalLink className="w-4 h-4 mr-2" />
                 了解更多
               </Button>
-              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
+              <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                <ExternalLink className="w-4 h-4 mr-2" />
                 联系我们
               </Button>
             </div>

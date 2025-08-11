@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ChevronDown, ChevronUp, Calendar, Users, MapPin, FileText, ExternalLink, Clock, Building2 } from 'lucide-react'
+import { ChevronDown, ChevronUp, Calendar, Users, MapPin, FileText, ExternalLink, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import yishuLogo from './assets/yishu-logo.png'
@@ -185,10 +185,7 @@ function App() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
-              <Clock className="w-4 h-4" />
-              <span>2024年调研报告</span>
-            </div>
+
           </div>
         </div>
       </header>

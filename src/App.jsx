@@ -141,7 +141,7 @@ function App() {
         members: [
           '青岛市人工智能协会郝江培',
           '青岛市产业研究院：高阳及随行人员',
-          '青岛市市南区自媒体协会妇联主席（兼易术科技外部合伙人）'
+          '青岛市市南区自媒体协会妇联主席（兼易术科技外部合伙人）：姜楠楠'
         ],
         icon: <Users className="w-5 h-5" />
       },
@@ -315,7 +315,7 @@ function App() {
               className="h-8 w-auto object-contain opacity-70"
             />
             <p className="text-gray-600 text-sm">
-              © 2024 青岛市政研室×智能体创业公司调研会 | 易术研究
+              © 2025 青岛市政研室×智能体创业公司调研会 | 易术研究
             </p>
             <p className="text-gray-500 text-xs">
               本报告基于实地调研和深度访谈，为政府决策提供参考依据

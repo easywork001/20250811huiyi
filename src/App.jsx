@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ChevronDown, ChevronUp, Calendar, Users, MapPin, FileText } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { ChevronDown, ChevronUp, Calendar, Users, MapPin, FileText, ExternalLink, Clock, Building2 } from 'lucide-react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import yishuLogo from './assets/yishu-logo.png'
@@ -7,6 +7,15 @@ import './App.css'
 
 function App() {
   const [expandedSections, setExpandedSections] = useState({})
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // 模拟页面加载
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const toggleSection = (sectionId) => {
     setExpandedSections(prev => ({
@@ -15,11 +24,17 @@ function App() {
     }))
   }
 
+  // 默认展开第一个部分
+  useEffect(() => {
+    setExpandedSections({ summary: true })
+  }, [])
+
   const sections = [
     {
       id: 'summary',
       title: '调研结论概述',
       icon: <FileText className="w-5 h-5" />,
+      color: 'from-blue-600 to-indigo-600',
       content: [
         '青岛本地AI智能体企业技术储备与应用探索已有基础，但在人才、资金、市场教育、产业交流等方面存在明显短板；',
         '本地智能体生态处于早期阶段，尚缺乏垂直场景试点和标杆企业引领；',
@@ -30,6 +45,7 @@ function App() {
       id: 'challenges',
       title: '关键痛点与发展障碍',
       icon: <Users className="w-5 h-5" />,
+      color: 'from-red-600 to-pink-600',
       content: [
         {
           subtitle: '人才引进与留用困难',
@@ -64,6 +80,7 @@ function App() {
       id: 'suggestions',
       title: '政策建议与行动清单',
       icon: <MapPin className="w-5 h-5" />,
+      color: 'from-green-600 to-emerald-600',
       content: [
         {
           subtitle: '人才政策优化',
@@ -102,6 +119,7 @@ function App() {
       id: 'actions',
       title: '近期可落地的三项优先行动',
       icon: <Calendar className="w-5 h-5" />,
+      color: 'from-purple-600 to-violet-600',
       content: [
         '启动"青岛AI人才引进绿色通道"试点：对重点企业研发团队开放人才公寓、短期住宿、配套生活服务。',
         '设立首批"AI智能体行业示范项目"：选择2-3个行业作为应用试点，半年内形成可展示成果。',
@@ -115,7 +133,8 @@ function App() {
     participants: [
       {
         category: '政府端',
-        members: ['青岛市委政研室调研处领导王健、张国栋、谢立鹏']
+        members: ['青岛市委政研室调研处领导王健、张国栋、谢立鹏'],
+        icon: <Building2 className="w-5 h-5" />
       },
       {
         category: '行业协会与产业组织',
@@ -123,19 +142,32 @@ function App() {
           '青岛市人工智能协会郝江培',
           '青岛市产业研究院：高阳及随行人员',
           '青岛市市南区自媒体协会妇联主席（兼易术科技外部合伙人）'
-        ]
+        ],
+        icon: <Users className="w-5 h-5" />
       },
       {
         category: '智能体创业公司代表',
-        members: ['易术科技：张凯（COO/联合创始人）、技术负责人leo']
+        members: ['易术科技：张凯（COO/联合创始人）、技术负责人leo'],
+        icon: <FileText className="w-5 h-5" />
       }
     ]
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 text-lg">正在加载青岛AI会议调研报告...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       {/* Header */}
-      <header className="bg-white shadow-lg border-b border-blue-100">
+      <header className="bg-white shadow-lg border-b border-blue-100 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-4">
@@ -153,6 +185,10 @@ function App() {
                 </p>
               </div>
             </div>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Clock className="w-4 h-4" />
+              <span>2024年调研报告</span>
+            </div>
           </div>
         </div>
       </header>
@@ -160,7 +196,7 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Meeting Background */}
-        <Card className="mb-8 shadow-lg border-blue-200">
+        <Card className="mb-8 shadow-lg border-blue-200 hover:shadow-xl transition-shadow duration-300">
           <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
             <CardTitle className="flex items-center gap-2 text-xl">
               <FileText className="w-6 h-6" />
@@ -168,18 +204,27 @@ function App() {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <p className="text-gray-700 leading-relaxed mb-6 text-base">
               {meetingDetails.background}
             </p>
             
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">与会人员构成</h3>
+            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+              <Users className="w-5 h-5 text-blue-600" />
+              与会人员构成
+            </h3>
             <div className="grid md:grid-cols-3 gap-4">
               {meetingDetails.participants.map((group, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-blue-700 mb-2">{group.category}</h4>
-                  <ul className="text-sm text-gray-600 space-y-1">
+                <div key={index} className="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border border-gray-200 hover:border-blue-300 transition-all duration-200 hover:shadow-md">
+                  <h4 className="font-medium text-blue-700 mb-3 flex items-center gap-2">
+                    {group.icon}
+                    {group.category}
+                  </h4>
+                  <ul className="text-sm text-gray-600 space-y-2">
                     {group.members.map((member, memberIndex) => (
-                      <li key={memberIndex}>{member}</li>
+                      <li key={memberIndex} className="flex items-start">
+                        <span className="w-2 h-2 bg-blue-400 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        {member}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -191,9 +236,9 @@ function App() {
         {/* Main Sections */}
         <div className="space-y-6">
           {sections.map((section) => (
-            <Card key={section.id} className="shadow-lg border-blue-200 overflow-hidden">
+            <Card key={section.id} className="shadow-lg border-blue-200 overflow-hidden hover:shadow-xl transition-all duration-300">
               <CardHeader 
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white cursor-pointer hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
+                className={`bg-gradient-to-r ${section.color} text-white cursor-pointer hover:brightness-110 transition-all duration-200`}
                 onClick={() => toggleSection(section.id)}
               >
                 <CardTitle className="flex items-center justify-between text-xl">
@@ -204,7 +249,7 @@ function App() {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-white hover:bg-white/20"
+                    className="text-white hover:bg-white/20 transition-colors duration-200"
                   >
                     {expandedSections[section.id] ? 
                       <ChevronUp className="w-5 h-5" /> : 
@@ -214,17 +259,19 @@ function App() {
                 </CardTitle>
               </CardHeader>
               
-              {(expandedSections[section.id] !== false) && (
+              <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                expandedSections[section.id] ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+              }`}>
                 <CardContent className="p-6">
                   <div className="space-y-4">
                     {section.content.map((item, index) => (
-                      <div key={index}>
+                      <div key={index} className="animate-fadeIn">
                         {typeof item === 'string' ? (
-                          <p className="text-gray-700 leading-relaxed">{item}</p>
+                          <p className="text-gray-700 leading-relaxed text-base">{item}</p>
                         ) : (
-                          <div className="mb-4">
-                            <h4 className="font-semibold text-gray-900 mb-2">{item.subtitle}</h4>
-                            <ul className="space-y-2 ml-4">
+                          <div className="mb-6 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-400">
+                            <h4 className="font-semibold text-gray-900 mb-3 text-lg">{item.subtitle}</h4>
+                            <ul className="space-y-3 ml-4">
                               {item.points.map((point, pointIndex) => (
                                 <li key={pointIndex} className="text-gray-700 leading-relaxed flex items-start">
                                   <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
@@ -238,10 +285,29 @@ function App() {
                     ))}
                   </div>
                 </CardContent>
-              )}
+              </div>
             </Card>
           ))}
         </div>
+
+        {/* Call to Action */}
+        <Card className="mt-8 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xl">
+          <CardContent className="p-8 text-center">
+            <h3 className="text-2xl font-bold mb-4">推动青岛AI产业发展</h3>
+            <p className="text-blue-100 mb-6 text-lg">
+              让我们共同努力，将青岛打造成为AI智能体产业的重要基地
+            </p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button variant="secondary" size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                <ExternalLink className="w-4 h-4 mr-2" />
+                了解更多
+              </Button>
+              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-blue-600">
+                联系我们
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Footer */}
         <footer className="mt-12 text-center py-8 border-t border-blue-200">
@@ -253,6 +319,9 @@ function App() {
             />
             <p className="text-gray-600 text-sm">
               © 2024 青岛市政研室×智能体创业公司调研会 | 易术研究
+            </p>
+            <p className="text-gray-500 text-xs">
+              本报告基于实地调研和深度访谈，为政府决策提供参考依据
             </p>
           </div>
         </footer>
